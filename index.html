@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<body>
+<style type="text/css">
+circle {
+  fill: #aaaaaa;
+}
+</style>
+
+<script type="text/javascript" src="js/Cell.js"></script>
+<script type="text/javascript" src="js/CellGrid.js"></script>
+<script type="text/javascript" src="js/d3.v2.js"></script>
+<script type="text/javascript">
+(function(){
+    var w = 960,
+        h = 500,
+        rows = 100,
+        columns = 200,
+        wRatio = w/columns,
+        hRatio = h/rows,
+        radius = 5;
+
+    var grid = new CellGrid(rows,columns);
+    grid.reset();
+
+    var svg = d3.select("body").append("svg:svg")
+        .attr("width", w+100)
+        .attr("height", h+100);
+
+    var circle = svg.selectAll("circle");
+
+    (function(){
+        grid.step();
+
+        circle = circle.data(grid.aliveCells(),function(d){return d.n});
+        circle.enter().append("circle")
+                .attr("cx", function(d){return d.x*wRatio + radius})
+                .attr("cy", function(d){return d.y*hRatio + radius})
+                .attr("r", radius);
+        circle.exit().remove();
+
+        setTimeout(arguments.callee,1000);
+    })();
+})();
+</script>
+</body>
+</html>
+
