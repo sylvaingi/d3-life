@@ -42,17 +42,17 @@ circle {
         circle.enter().append("circle")
                 .attr("cx", function(d){return d.x*wRatio + radius})
                 .attr("cy", function(d){return d.y*hRatio + radius})
-                //.transition().duration(500)
+                .transition().duration(500)
                     .attr("r", radius)
                     .style("fill","#2ca02c");;
 
         circle.exit()
             .style("fill","#d62728")
-            //.transition().duration(500)
+            .transition().duration(500)
                 .attr("r", 0)
             .remove();
 
-        setTimeout(arguments.callee,100);
+        setTimeout(arguments.callee,500);
     })();
 })();
 </script>
